@@ -23,14 +23,15 @@ class GamesController < ApplicationController
 
     if included?(@word, @letters)
       if english_word?(@word)
-        @message = "well done"
+        @message = "Congratulations, #{@word} is a valid English word!"
+        session[:score] = 0 if session[:score] == nil
+        session[:score] += @word.size
       else
-        @message = "not an english word"
+        @message = "Sorry, but #{@word} does not seem to be a valid English word!"
       end
     else
-      @message = "not in the grid";
+      @message = "Sorry, but #{@word} can’t be build out of #{@letters}."
     end
-
 
   end
 
